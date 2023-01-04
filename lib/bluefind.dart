@@ -1,43 +1,25 @@
-// Copyright 2017, Paul DeMarco.
-// All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
-import 'package:testt/login_page.dart';
 import 'package:testt/screen_play.dart';
 import 'package:testt/widgets.dart';
 
-void main() {
-  runApp(FlutterBlueApp());
-}
+import 'package:testt/user_blue_model.dart';
 
-class FlutterBlueApp extends StatelessWidget {
+import 'user_blue_model.dart';
+
+class BluetoothOffScreen extends StatefulWidget {
+  //const BluetoothOffScreen({Key? key, this.state}) : super(key: key);
+
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      color: Colors.lightBlue,
-      home: StreamBuilder<BluetoothState>(
-          stream: FlutterBlue.instance.state,
-          initialData: BluetoothState.unknown,
-          builder: (c, snapshot) {
-            final state = snapshot.data;
-            if (state == BluetoothState.on) {
-              return login();
-            }
-            return login();
-          }),
-    );
-  }
+  State<BluetoothOffScreen> createState() => _BluetoothOffScreenState();
 }
 
-class BluetoothOffScreen extends StatelessWidget {
-  const BluetoothOffScreen({Key? key, this.state}) : super(key: key);
-
-  final BluetoothState? state;
+class _BluetoothOffScreenState extends State<BluetoothOffScreen> {
+  late BluetoothState? state;
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +48,23 @@ class BluetoothOffScreen extends StatelessWidget {
   }
 }
 
-class FindDevicesScreen extends StatelessWidget {
+class FindDevicesScreen extends StatefulWidget {
+
+
   @override
+  State<FindDevicesScreen> createState() => _FindDevicesScreenState();
+}
+
+class _FindDevicesScreenState extends State<FindDevicesScreen> {
+
+  @override
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Search Devices to connect'),
+        backgroundColor: Colors.lightGreen,
       ),
       body: RefreshIndicator(
         onRefresh: () =>
@@ -86,26 +79,26 @@ class FindDevicesScreen extends StatelessWidget {
                 builder: (c, snapshot) => Column(
                   children: snapshot.data!
                       .map((d) => ListTile(
-                            title: Text(d.name),
-                            subtitle: Text(d.id.toString()),
-                            trailing: StreamBuilder<BluetoothDeviceState>(
-                              stream: d.state,
-                              initialData: BluetoothDeviceState.disconnected,
-                              builder: (c, snapshot) {
-                                if (snapshot.data ==
-                                    BluetoothDeviceState.connected) {
-                                  return OutlinedButton(
-                                    child: Text('OPEN'),
-                                    onPressed: () => Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                DeviceScreen(device: d))),
-                                  );
-                                }
-                                return Text(snapshot.data.toString());
-                              },
-                            ),
-                          ))
+                    title: Text(d.name),textColor: Colors.blue,
+                    subtitle: Text(d.id.toString()),
+                    trailing: StreamBuilder<BluetoothDeviceState>(
+                      stream: d.state,
+                      initialData: BluetoothDeviceState.disconnected,
+                      builder: (c, snapshot) {
+                        if (snapshot.data ==
+                            BluetoothDeviceState.connected) {
+                          return OutlinedButton(
+                            child: Text('OPEN'),
+                            onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        DeviceScreen(device: d))),
+                          );
+                        }
+                        return Text(snapshot.data.toString());
+                      },
+                    ),
+                  ))
                       .toList(),
                 ),
               ),
@@ -116,14 +109,14 @@ class FindDevicesScreen extends StatelessWidget {
                   children: snapshot.data!
                       .map(
                         (r) => ScanResultTile(
-                          result: r,
-                          onTap: () => Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            r.device.connect();
-                            return DeviceScreen(device: r.device);
-                          })),
-                        ),
-                      )
+                      result: r,
+                      onTap: () => Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        r.device.connect();
+                        return DeviceScreen(device: r.device);
+                      })),
+                    ),
+                  )
                       .toList(),
                 ),
               ),
@@ -172,34 +165,35 @@ class DeviceScreen extends StatelessWidget {
     return services
         .map(
           (s) => ServiceTile(
-            service: s,
-            characteristicTiles: s.characteristics
+        service: s,
+        characteristicTiles: s.characteristics
+            .map(
+              (c) => CharacteristicTile(
+            characteristic: c,
+            onReadPressed: () => c.read(),
+            onWritePressed: () async {
+              await c.write(_getRandomBytes(), withoutResponse: true);
+              await c.read();
+
+            },
+            onNotificationPressed: () async {
+              await c.setNotifyValue(!c.isNotifying);
+              await c.read();
+            },
+            descriptorTiles: c.descriptors
                 .map(
-                  (c) => CharacteristicTile(
-                    characteristic: c,
-                    onReadPressed: () => c.read(),
-                    onWritePressed: () async {
-                      await c.write(_getRandomBytes(), withoutResponse: true);
-                      await c.read();
-                    },
-                    onNotificationPressed: () async {
-                      await c.setNotifyValue(!c.isNotifying);
-                      await c.read();
-                    },
-                    descriptorTiles: c.descriptors
-                        .map(
-                          (d) => DescriptorTile(
-                            descriptor: d,
-                            onReadPressed: () => d.read(),
-                            onWritePressed: () => d.write(_getRandomBytes()),
-                          ),
-                        )
-                        .toList(),
-                  ),
-                )
+                  (d) => DescriptorTile(
+                descriptor: d,
+                onReadPressed: () => d.read(),
+                onWritePressed: () => d.write(_getRandomBytes()),
+              ),
+            )
                 .toList(),
           ),
         )
+            .toList(),
+      ),
+    )
         .toList();
   }
 
@@ -208,7 +202,23 @@ class DeviceScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(device.name),
+
+        backgroundColor: Colors.lightGreen,
         actions: <Widget>[
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: IconButton(
+              icon: new Icon(Icons.person),
+              highlightColor: Colors.pink,
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Myservice()));
+              },
+            ),
+          ),
           StreamBuilder<BluetoothDeviceState>(
             stream: device.state,
             initialData: BluetoothDeviceState.connecting,

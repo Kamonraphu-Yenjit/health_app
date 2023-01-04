@@ -1,41 +1,40 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:testt/user_model.dart';
 import 'dart:convert';
 
 class Myservice extends StatefulWidget {
   //const show_screen({super.key});
-  final UserModel userModel;
-  Myservice({required this.userModel});
+  // final UserModel userModel;
+  //Myservice({required this.userModel});
 
   @override
   State<Myservice> createState() => _MyserviceState();
 }
 
 class _MyserviceState extends State<Myservice> {
-  late UserModel model_scree_play;
+  // late UserModel model_scree_play;
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    model_scree_play = widget.userModel;
-  }
+  //void initState() {
+  // TODO: implement initState
+  // super.initState();
+  // model_scree_play = widget.userModel;
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         //leading: Icon(Icons.menu),
         title: Row(
           children: [
-            Text(
-              '${model_scree_play.f_name} ',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
+            //   Text(
+            //   '${model_scree_play.f_name} ',
+            //   style: TextStyle(
+            //       color: Colors.black,
+            //      fontSize: 20,
+            //     fontWeight: FontWeight.bold),
+            // ),
             Text(
               'Health',
               style: TextStyle(
@@ -54,16 +53,16 @@ class _MyserviceState extends State<Myservice> {
               highlightColor: Colors.pink,
               onPressed: () {
                 //Navigator.push(context, MaterialPageRoute(builder: (context) {
-                 // return show_person(
-                  //  userModel: model_scree_play,
-                  //);
-              //  }));
+                // return show_person(
+                //  userModel: model_scree_play,
+                //);
+                //  }));
               },
             ),
           ),
           Icon(Icons.more_vert),
         ],
-        backgroundColor: Colors.white10,
+        backgroundColor: Colors.lightGreen,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -72,8 +71,8 @@ class _MyserviceState extends State<Myservice> {
               Container(
                 child: Container(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-                  height: MediaQuery.of(context).size.height * 0.25,
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+                  height: MediaQuery.of(context).size.height * 0.28,
                   child: Card(
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
@@ -88,6 +87,7 @@ class _MyserviceState extends State<Myservice> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -97,27 +97,84 @@ class _MyserviceState extends State<Myservice> {
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold)),
                                 SizedBox(
-                                  height: 30,
+                                  height: 10,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text('13,620 ',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold)),
-                                      Text(' /16000 ก้าว ',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold)),
-                                    ],
-                                  ),
-                                )
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(width: 2),
+                                        shape: BoxShape.circle,
+                                        // You can use like this way or like the below line
+                                        //borderRadius: new BorderRadius.circular(30.0),
+                                        color: Colors.orangeAccent,
+                                      ),
+                                      child:Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Icon(Icons.directions_walk),
+
+                                          Text('0'),
+
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text('Step distance :',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.bold)),
+                                              Text(' 0.00 ',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20,
+                                                      fontWeight: FontWeight.bold)),
+                                              Text(' km ',
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20,
+                                                  )),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 8.0),
+                                            child: Row(
+                                              children: [
+                                                Text('Step consumption :',
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 15,
+                                                        fontWeight: FontWeight.bold)),
+                                                Text(' 0 ',
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 20,
+                                                        fontWeight: FontWeight.bold)),
+                                                Text(' kcal ',
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20,
+                                                    )),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
                               ],
                             ),
                           ),
@@ -130,7 +187,7 @@ class _MyserviceState extends State<Myservice> {
               Container(
                 child: Container(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
                   height: MediaQuery.of(context).size.height * 0.25,
                   child: Card(
                     color: Colors.white,
@@ -149,7 +206,7 @@ class _MyserviceState extends State<Myservice> {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Text('Daily activity',
+                                Text('Heart rate',
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 20,
@@ -159,19 +216,21 @@ class _MyserviceState extends State<Myservice> {
                                 ),
                                 Row(
                                   children: [
-                                    Column(
-                                      children: [
-                                        Icon(Icons.run_circle_rounded),
-                                        Text('13,620',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold)),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
+
+                                        Icon(Icons.heart_broken_rounded,color: Colors.pink,),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text('90',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 30,
+                                                  fontWeight: FontWeight.w500)),
+                                        ),
+                                    Text('BPM',style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        ))
+
                                   ],
                                 )
                               ],
@@ -186,7 +245,7 @@ class _MyserviceState extends State<Myservice> {
               Container(
                 child: Container(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
                   height: MediaQuery.of(context).size.height * 0.25,
                   child: Card(
                     color: Colors.white,
@@ -217,7 +276,7 @@ class _MyserviceState extends State<Myservice> {
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text('7 h ',
                                           style: TextStyle(
@@ -244,7 +303,7 @@ class _MyserviceState extends State<Myservice> {
               Container(
                 child: Container(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
                   height: MediaQuery.of(context).size.height * 0.25,
                   child: Card(
                     color: Colors.white,
@@ -275,7 +334,7 @@ class _MyserviceState extends State<Myservice> {
                                   padding: const EdgeInsets.only(left: 130.0),
                                   child: Row(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Icon(
                                         Icons.nordic_walking,
@@ -308,7 +367,7 @@ class _MyserviceState extends State<Myservice> {
               Container(
                 child: Container(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
                   height: MediaQuery.of(context).size.height * 0.25,
                   child: Card(
                     color: Colors.white,
@@ -325,7 +384,7 @@ class _MyserviceState extends State<Myservice> {
               Container(
                 child: Container(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
                   height: MediaQuery.of(context).size.height * 0.25,
                   child: Card(
                     color: Colors.white,
