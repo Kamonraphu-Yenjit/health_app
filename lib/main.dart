@@ -8,8 +8,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:testt/login_page.dart';
+import 'package:testt/register.dart';
 import 'package:testt/screen_play.dart';
 import 'package:testt/widgets.dart';
+
+import 'navbar.dart';
 
 void main() {
   runApp(FlutterBlueApp());
@@ -28,7 +31,7 @@ class FlutterBlueApp extends StatelessWidget {
             if (state == BluetoothState.on) {
               return login();
             }
-            return login();
+            return BluetoothOffScreen();
           }),
     );
   }

@@ -127,7 +127,7 @@ class _loginState extends State<login> {
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.lock_outline),
                           border: InputBorder.none,
-                          hintText: 'Email'),
+                          hintText: 'อีเมลล์'),
                     ),
                   ),
                 ),
@@ -150,7 +150,7 @@ class _loginState extends State<login> {
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.lock_outline),
                           border: InputBorder.none,
-                          hintText: 'Password'),
+                          hintText: 'รหัสผ่าน'),
                     ),
                   ),
                 ),
@@ -202,7 +202,7 @@ class _loginState extends State<login> {
                       //print(a.key.toString());
                     },
                     child: Text(
-                      'Sign in',
+                      'เข้าสู่ระบบ',
                       style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
                   ),
@@ -215,7 +215,7 @@ class _loginState extends State<login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Not a member?',
+                    'ยังไม่มีบัญชี?',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   InkWell(
@@ -228,7 +228,7 @@ class _loginState extends State<login> {
                     child: new Padding(
                       padding: new EdgeInsets.all(10.0),
                       child: new Text(
-                        "Register now?",
+                        "ลงทะเบียน?",
                         style: TextStyle(
                             color: Colors.blue,
                             fontSize: 20,

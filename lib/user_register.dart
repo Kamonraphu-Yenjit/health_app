@@ -5,51 +5,57 @@ import 'package:flutter/material.dart';
 
 class User_register {
   final String user;
-  final String pass;
+  final String passd;
   final String f_name;
-  final String l_name;
-  final String iot;
+  final String birthday;
+  final String hight;
+  final String weight;
   User_register({
     required this.user,
-    required this.pass,
+    required this.passd,
     required this.f_name,
-    required this.l_name,
-    required this.iot,
+    required this.birthday,
+    required this.hight,
+    required this.weight,
   });
 
   User_register copyWith({
     String? user,
-    String? pass,
+    String? passd,
     String? f_name,
-    String? l_name,
-    String? iot,
+    String? birthday,
+    String? hight,
+    String? weight,
   }) {
     return User_register(
       user: user ?? this.user,
-      pass: pass ?? this.pass,
+      passd: passd ?? this.passd,
       f_name: f_name ?? this.f_name,
-      l_name: l_name ?? this.l_name,
-      iot: iot ?? this.iot,
+      birthday: birthday ?? this.birthday,
+      hight: hight ?? this.hight,
+      weight: weight ?? this.weight,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'user': user,
-      'pass': pass,
+      'passd': passd,
       'f_name': f_name,
-      'l_name': l_name,
-      'iot': iot,
+      'birthday': birthday,
+      'hight': hight,
+      'weight': weight,
     };
   }
 
   factory User_register.fromMap(Map<String, dynamic> map) {
     return User_register(
       user: map['user'] as String,
-      pass: map['pass'] as String,
+      passd: map['passd'] as String,
       f_name: map['f_name'] as String,
-      l_name: map['l_name'] as String,
-      iot: map['iot'] as String,
+      birthday: map['birthday'] as String,
+      hight: map['hight'] as String,
+      weight: map['weight'] as String,
     );
   }
 
@@ -60,7 +66,7 @@ class User_register {
 
   @override
   String toString() {
-    return 'User_register(user: $user, pass: $pass, f_name: $f_name, l_name: $l_name, iot: $iot)';
+    return 'User_register(user: $user, passd: $passd, f_name: $f_name, birthday: $birthday, hight: $hight, weight: $weight)';
   }
 
   @override
@@ -68,18 +74,20 @@ class User_register {
     if (identical(this, other)) return true;
 
     return other.user == user &&
-        other.pass == pass &&
+        other.passd == passd &&
         other.f_name == f_name &&
-        other.l_name == l_name &&
-        other.iot == iot;
+        other.birthday == birthday &&
+        other.hight == hight &&
+        other.weight == weight;
   }
 
   @override
   int get hashCode {
     return user.hashCode ^
-    pass.hashCode ^
-    f_name.hashCode ^
-    l_name.hashCode ^
-    iot.hashCode;
+        passd.hashCode ^
+        f_name.hashCode ^
+        birthday.hashCode ^
+        hight.hashCode ^
+        weight.hashCode;
   }
 }
